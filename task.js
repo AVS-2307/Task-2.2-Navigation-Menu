@@ -5,13 +5,15 @@ Array.from(links).forEach(item => {
     item.addEventListener('click', function(event) {
 
         closeAllSubMenu(event.target.nextElementSibling);       
-              
-        if (event.target.nextElementSibling.classList.contains('menu_sub')) {                
-            event.target.nextElementSibling.classList.toggle('menu_active');
-            //event.stopPropagation(); // останавливаем всплытие обработчика выше event.target.
-            //клики по ссылкам работают только на своём элементе вложенного меню, без всплютия в корневое меню            
-            event.preventDefault();  // останавливаем пропадание ниспадающего menu_active            
-        }
+        
+        if (event.target.nextElementSibling != null) {
+            if (event.target.nextElementSibling.classList.contains('menu_sub')) {                
+                event.target.nextElementSibling.classList.toggle('menu_active');
+                //event.stopPropagation(); // останавливаем всплытие обработчика выше event.target.
+                //клики по ссылкам работают только на своём элементе вложенного меню, без всплютия в корневое меню            
+                event.preventDefault();  // останавливаем пропадание ниспадающего menu_active            
+            }
+        };        
     });            
 });
 
@@ -23,7 +25,6 @@ function closeAllSubMenu(current = null) {
         if (item != current) {
         item.classList.remove('menu_active')
         }
-
     });
 };
 
@@ -32,8 +33,6 @@ document.querySelector('.menu').onmouseleave = closeAllSubMenu;
 
 function closeAllSubMenuOnLeave(current = null) {
     const closeOnLeave = document.querySelectorAll('.menu ul');
-
-    console.log(closeOnLeave);
 
     Array.from(closeOnLeave).forEach(item => {
         if (item != current) {
